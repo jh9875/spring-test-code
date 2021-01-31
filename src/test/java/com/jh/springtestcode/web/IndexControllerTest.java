@@ -3,25 +3,28 @@ package com.jh.springtestcode.web;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(controllers = IndexController.class)
+@SpringBootTest(webEnvironment = RANDOM_PORT)
 public class IndexControllerTest {
 	@Autowired
-	private MockMvc mvc;
+	private TestRestTemplate restTemplate;
 
 	@Test
-	public void index_테스트() throws Exception {
-		
+	public void 메인페이지_로딩() {
+		//when
+		String body =this.restTemplate.getForObject("/", String.class);
 
-		mvc.perform(get("/"))
-			.andExpect(status().isOk());
+		//then
+		assertThat(body).contains("테스트");
+
+		
 	}
 }
