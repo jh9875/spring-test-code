@@ -1,4 +1,4 @@
-package com.jh.springtestcode.junit4.web;
+package com.jh.springtestcode.web;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,21 +8,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
 @RunWith(SpringRunner.class)
-@WebMvcTest(controllers = HelloController.class)
-public class HelloControllerTest {
+@WebMvcTest(controllers = IndexController.class)
+public class IndexControllerTest {
 	@Autowired
 	private MockMvc mvc;
 
 	@Test
-	public void hello가_리턴된다() throws Exception {
-		String hello ="hello";
+	public void index_테스트() throws Exception {
+		
 
-		mvc.perform(get("/hello"))
-			.andExpect(status().isOk())
-			.andExpect(content().string(hello));
+		mvc.perform(get("/"))
+			.andExpect(status().isOk());
 	}
 }
