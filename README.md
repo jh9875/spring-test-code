@@ -1,7 +1,7 @@
 Spring test code
 ===================================
 
-테스트 [코드](src/test/java/com/jg/springtestcode/examples) 정리.
+테스트 [코드](src/test/java/com/jh/springtestcode/examples) 정리.
 
 **진행중.**
 
