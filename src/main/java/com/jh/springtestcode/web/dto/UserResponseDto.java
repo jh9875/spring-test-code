@@ -3,8 +3,10 @@ package com.jh.springtestcode.web.dto;
 import com.jh.springtestcode.domain.user.User;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
+@RequiredArgsConstructor
 public class UserResponseDto {
 	private Long id;
 	private String email;

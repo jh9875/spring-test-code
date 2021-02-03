@@ -5,6 +5,7 @@ import com.jh.springtestcode.web.dto.UserResponseDto;
 import com.jh.springtestcode.web.dto.UserSaveRequestDto;
 import com.jh.springtestcode.web.dto.UserUpdateRequestDto;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +28,12 @@ public class UserApiController {
 	@PutMapping("/api/v1/user/{id}")
 	public Long update(@PathVariable Long id, @RequestBody UserUpdateRequestDto requestDto) {
 		return userService.update(id, requestDto);
+	}
+
+	@DeleteMapping("/api/v1/user/{id}")
+	public Long delete(@PathVariable Long id) {
+		userService.delete(id);
+		return id;
 	}
 
 	@GetMapping("/api/v1/user/{id}")

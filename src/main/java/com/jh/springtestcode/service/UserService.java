@@ -29,7 +29,15 @@ public class UserService {
 		
 		user.update(requestDto.getEmail(), requestDto.getName(), requestDto.getAge());
 		return id;
-	}	
+	}
+
+	@Transactional
+	public void delete(Long id) {
+		User user =userRepository.findById(id)
+			.orElseThrow(() ->new IllegalArgumentException("해당 유저가 없습니다. id =" +id));
+
+		userRepository.delete(user);
+	}
 
 	@Transactional
 	public UserResponseDto findById(Long id) {
