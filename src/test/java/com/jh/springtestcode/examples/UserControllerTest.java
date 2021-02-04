@@ -7,7 +7,7 @@ import com.jh.springtestcode.service.UserService;
 import com.jh.springtestcode.web.UserApiController;
 import com.jh.springtestcode.web.dto.UserSaveRequestDto;
 
-
+import org.assertj.core.api.UrlAssert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,6 +21,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MockMvcBuilder;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -65,24 +66,40 @@ public class UserControllerTest {
 	}
 
 
-
 	@Test
-	public void get_유저목록얻기_테스트() throws Exception {
+	public void get_findById_테스트() throws Exception {
 		//given
+		User expectedUser =userRepository.save(User.builder()
+			.email("abc@test.com")
+			.name("tester")
+			.age(50)
+			.build());
 
+		Long expectedId =expectedUser.getId();
+		String expectedEmail =expectedUser.getEmail();
+		String expectedName =expectedUser.getName();
+		int expectedAge =expectedUser.getAge();
+
+		String url ="http://localhost" +port +"/api/v1/user/" +expectedId;
 
 		//when
 
+		MvcResult result = mvc.perform(get(url))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+			.andDo(print())
+			.andReturn();
 
 		//then
-		
-		
-		
-	
+		User user =new ObjectMapper().readValue(result.getResponse().getContentAsString(), User.class);
+		assertThat(user.getId()).isEqualTo(expectedId);
+		assertThat(user.getEmail()).isEqualTo(expectedEmail);
+		assertThat(user.getName()).isEqualTo(expectedName);
+		assertThat(user.getAge()).isEqualTo(expectedAge);
 	}
 
 	@Test
-	public void post_테스트() throws Exception {
+	public void post_save_테스트() throws Exception {
 		//given
 		String email ="abc@test.com";
 		String name ="tester";
@@ -109,7 +126,7 @@ public class UserControllerTest {
 	}
 
 	@Test
-	public void put_테스트() throws Exception {
+	public void put_update_테스트() throws Exception {
 		
 	}
 

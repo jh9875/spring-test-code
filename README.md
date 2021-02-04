@@ -133,16 +133,30 @@ Spring test code
     - delete(URI uri) <br>
 	  URI 주소로 HTTP DELETE 요청
 
+
       - param(String name, String value) / params(MultiValueMap<String, String> params) <br>
 		파라미터로 키(name)와 값(value)을 전달합니다.
 
-      - contentType(MediaType contentType)
+      - contentType() <br>
+		- MockHttpServletRequestBuilder.contentType(MediaType contentType) <br>
+		  요청의 헤더에 Content-Type을 설정.
+
+		- ContentResultMatchers.contentType(MediaType contentType) <br>
+		  응답의 type을 contentType으로 ?
+
 	  - content() <br>
+		- MockHttpServletRequestBuilder.content(String content) <br>
+		  request body를 설정.
+
+		- MockMvcResultMatchers.content() <br>
+		  response body에 접근.
+
       - header() <br>
 
 - Response
   - andExpect(ResultMatcher matcher) <br>
 	검증을 실행.
+
 
 	- status() <br>
 	  HTTP 상태 코드를 검증.
@@ -171,6 +185,7 @@ Spring test code
 	- contentType() <br>
 	  요청의 Content-Type 헤더를 설정.
 
+
 	- cookie() <br>
 	- view() <br>
 	- redirect() <br>
@@ -185,6 +200,7 @@ Spring test code
 	- log() <br>
 	  실행 결과를 디버깅 레벨에서 로그로 출력.
   
+
   - andReturn() <br>
 	테스트한 결과 객체를 받을 때 사용.
 
