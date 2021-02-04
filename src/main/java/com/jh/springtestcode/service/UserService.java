@@ -1,9 +1,13 @@
 package com.jh.springtestcode.service;
 
-import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jh.springtestcode.domain.user.User;
 import com.jh.springtestcode.domain.user.UserRepository;
+import com.jh.springtestcode.web.dto.UserListResponseDto;
 import com.jh.springtestcode.web.dto.UserResponseDto;
 import com.jh.springtestcode.web.dto.UserSaveRequestDto;
 import com.jh.springtestcode.web.dto.UserUpdateRequestDto;
@@ -39,11 +43,18 @@ public class UserService {
 		userRepository.delete(user);
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	public UserResponseDto findById(Long id) {
 		User entity =userRepository.findById(id)
 			.orElseThrow(() ->new IllegalArgumentException("해당 유저가 없습니다. id =" +id));
 
 		return new UserResponseDto(entity);
+	}
+
+	@Transactional(readOnly = true)
+	public List<UserListResponseDto> findAllDesc() {
+		return userRepository.findAllDesc().stream()
+			.map(UserListResponseDto::new)
+			.collect(Collectors.toList());
 	}
 }

@@ -3,6 +3,12 @@ Spring test code
 
 테스트 [코드](src/test/java/com/jh/springtestcode/examples) 정리.
 
+### 목록
+
+- [JUnit4 기본](#junit4)
+- [AssertJ](#assertj)
+- [MVC Test](#mvc-test)
+
 **진행중.**
 
 <br>
@@ -55,7 +61,7 @@ Spring test code
 <hr>
 <br>
 
-# MVC Test
+# Testing
 ### Annotation
 - @RunWith(~.class) <br>
   테스트를 진행할 때 JUnit에 내장된 실행자 외에 다른 실행자를 실행.
@@ -63,15 +69,30 @@ Spring test code
 - @SpringBootTest <br>
   *통합 테스트*를 하기위한 스프링 부트 테스트 어노테이션. <br>
   테스트에 필요한 거의 모든 의존성을 제공.
+  모든 Bean을 제공하기 때문에 애플리케이션의 규모가크면 테스트가 느려짐.
   
-  - @SpringBootTest(webEnvironment = ) <br>
+  - @SpringBootTest(webEnvironment = ~) <br>
 	웹 테스트 환경 구성. <br>
-	- 진행중 ..
+
+	- @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK) <br>
+	  ..
+
+	- @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) <br>
+	  스프링 내장 서버를 랜덤 포트로 배정.
+
+	- @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT) <br>
+	  ..
+
+	- @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE) <br>
+	  기본적인 ApplicationContext를 로드?
+
 
 
 - @WebMvcTest <br>
-  *단위 테스트*를 하기위한 스프링 부트 테스트 어노테이션. <br>
+  MVC *단위 테스트*를 하기위한 스프링 부트 테스트 어노테이션. <br>
   웹에서 테스트하기 힘든 *컨트롤러를 테스트하기 적합*. <br>
+  WebApplication 관련 Bean빈들만 관리하므로 @SpringBootTest에 비해 가벼운 테스팅이 가능.
+  Service를 사용하려면 가짜로 만들수 있음. (@MockMvc) <br>
   @Controller, @ControllerAdvice 등을 사용 가능. <br>
 
   - @WebMvcTest(controllers = ~.class) , @WebMvcTest(value = ~.class) <br>
@@ -83,10 +104,13 @@ Spring test code
   참고 : <https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/autoconfigure/web/servlet/WebMvcTest.html> 
 
 - @DataJpaTest
-  
-- @RestClientTest
-  
-- @JsonTest
+  JPA 관련 설정만 로드.
+
+- @RestClientTest <br>
+  REST 관련 테스트를 하기 위한 어노테이션.
+
+- @JsonTest <br>
+  JSON 테스트를 하기 위한 어노테이션.
 
 ...
 
@@ -141,10 +165,17 @@ Spring test code
 	- header() <br>
 	  응답 헤더 상태를 검증.
 
+	- content() <br>
+	  requestBody를 설정.
+
+	- contentType() <br>
+	  요청의 Content-Type 헤더를 설정.
+
+	- cookie() <br>
 	- view() <br>
 	- redirect() <br>
 	- model() <br>
-	- content() <br>
+	
 
   - andDo(ResultHandler handler) <br>
 	요청에 대한 처리.

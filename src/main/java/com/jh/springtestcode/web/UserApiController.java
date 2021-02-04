@@ -1,6 +1,9 @@
 package com.jh.springtestcode.web;
 
+import java.util.List;
+
 import com.jh.springtestcode.service.UserService;
+import com.jh.springtestcode.web.dto.UserListResponseDto;
 import com.jh.springtestcode.web.dto.UserResponseDto;
 import com.jh.springtestcode.web.dto.UserSaveRequestDto;
 import com.jh.springtestcode.web.dto.UserUpdateRequestDto;
@@ -39,5 +42,10 @@ public class UserApiController {
 	@GetMapping("/api/v1/user/{id}")
 	public UserResponseDto findById(@PathVariable Long id) {
 		return userService.findById(id);
+	}
+
+	@GetMapping("/api/v1/user/list")
+	public List<UserListResponseDto> findAll() {
+		return userService.findAllDesc();
 	}
 }
