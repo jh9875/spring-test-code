@@ -90,10 +90,79 @@ Spring test code
 
 ...
 
-### MockMvc
+### MockMvc Method
 **MockMvc**란? 웹 API를 테스트하기 위한 클래스로서 Spring MVC 동작을 테스트할 수 있음.
 
+- Request
+  - perform(RequestBuilder requestBuilder) <br>
+  	요청을 수행하고 추가 작업을 할 수 있는 결과를 반환. 
+
+    - get(URI uri) <br>
+	  URI 주소로 HTTP GET 요청
+
+    - post(URI uri) <br>
+	  URI 주소로 HTTP POST 요청
+
+    - put(URI uri) <br>
+	  URI 주소로 HTTP PUT 요청
+
+    - delete(URI uri) <br>
+	  URI 주소로 HTTP DELETE 요청
+
+      - param(String name, String value) / params(MultiValueMap<String, String> params) <br>
+		파라미터로 키(name)와 값(value)을 전달합니다.
+
+      - contentType(MediaType contentType)
+	  - content() <br>
+      - header() <br>
+
+- Response
+  - andExpect(ResultMatcher matcher) <br>
+	검증을 실행.
+
+	- status() <br>
+	  HTTP 상태 코드를 검증.
+
+	  - isOk() : 200
+	  - isCreated() : 201
+	  - isBadRequest() : 400
+	  - isNotFound() : 404
+	  - isMethodNotAllowed() : 405
+	  - isInternalServerError() : 500
+	  - is1xxInformational()
+	  - is2xxSuccessful()
+	  - is3xxRedirection()
+	  - is4xxClientError()
+	  - is5xxServerError()
+	  - is(int status) : 예상 응답 상태 코드(status) 삽입. 
+		
+		...
+
+	- header() <br>
+	  응답 헤더 상태를 검증.
+
+	- view() <br>
+	- redirect() <br>
+	- model() <br>
+	- content() <br>
+
+  - andDo(ResultHandler handler) <br>
+	요청에 대한 처리.
+
+	- print() <br>
+	  실행 결과를 임의의 출력 대상에 출력. 출력 대상을 지정하지 않으면 기본적으로 표준 출력(System.out)이 대상.
+	- log() <br>
+	  실행 결과를 디버깅 레벨에서 로그로 출력.
+  
+  - andReturn() <br>
+	테스트한 결과 객체를 받을 때 사용.
+
+
 - HTTP GET 예제 <br>
+  ~~~ java
+	mvc.perform()
+	...
+  ~~~
   
 - HTTP POST 예제 <br>
   

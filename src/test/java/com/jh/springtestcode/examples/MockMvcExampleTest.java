@@ -12,29 +12,49 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+
+
+
 @RunWith(SpringRunner.class)
-@WebMvcTest(controllers = UserApiController.class)
+// @WebMvcTest(controllers = UserApiController.class)
+@WebMvcTest()
 public class MockMvcExampleTest {
 	@Autowired
 	private MockMvc mvc;
 
 	@Test
-	public void get_유저테스트() {
-
+	public void get_테스트() throws Exception {
+		mvc.perform(get("/api/v1/user/{id}"))
+			.andExpect(status().isOk())
+			.andExpect(status().is5xxServerError())
+			.andDo(print())
+			.andReturn();
+		
+	
 	}
 
 	@Test
-	public void post_유저테스트() {
-
+	public void post_테스트() throws Exception {
+		mvc.perform(post("/api/v1/user"))
+			.andExpect(status().isOk());
 	}
 
 	@Test
-	public void put_유저테스트() {
-
+	public void put_테스트() throws Exception {
+		mvc.perform(put("/api/v1/user/{id}"))
+			.andExpect(status().isOk());
 	}
 
 	@Test
-	public void delete_유저테스트() {
-
+	public void delete_테스트() throws Exception {
+		mvc.perform(delete("/api/v1/user/{id}"))
+			.andExpect(status().isOk());
 	}
 }
