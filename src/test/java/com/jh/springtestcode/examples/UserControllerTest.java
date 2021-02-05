@@ -6,6 +6,7 @@ import com.jh.springtestcode.domain.user.UserRepository;
 import com.jh.springtestcode.service.UserService;
 import com.jh.springtestcode.web.UserApiController;
 import com.jh.springtestcode.web.dto.UserSaveRequestDto;
+import com.jh.springtestcode.web.dto.UserUpdateRequestDto;
 
 import org.assertj.core.api.UrlAssert;
 import org.junit.After;
@@ -38,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 
-//단위테스트
+//통합테스트
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserControllerTest {
@@ -127,11 +128,58 @@ public class UserControllerTest {
 
 	@Test
 	public void put_update_테스트() throws Exception {
-		
+		//given
+		User savedUser =userRepository.save(User.builder()
+			.email("email")
+			.name("name")
+			.age(20)
+			.build());
+		Long expectedId =savedUser.getId();
+		String expectedEmail ="updatedEmail";
+		String expectedName ="updatedName";
+		int expectedAge =21;
+
+		UserUpdateRequestDto requestDto =UserUpdateRequestDto.builder()
+			.email(expectedEmail)
+			.name(expectedName)
+			.age(expectedAge)
+			.build();
+
+		String url ="http://localhost:" +port + "/api/v1/user/" +expectedId;
+
+		//when
+		mvc.perform(put(url)
+			.contentType(MediaType.APPLICATION_JSON_UTF8)
+			.content(new ObjectMapper().writeValueAsString(requestDto)))
+			.andExpect(status().isOk())
+			.andDo(print());
+
+		//then
+		User user =userRepository.findById(expectedId)
+			.orElseThrow(() ->new IllegalArgumentException("해당 유저가 없습니다. id: " +expectedId));
+		assertThat(user.getEmail()).isEqualTo(expectedEmail);
+		assertThat(user.getName()).isEqualTo(expectedName);
+		assertThat(user.getAge()).isEqualTo(expectedAge);
 	}
 
 	@Test
 	public void delete_테스트() throws Exception {
-		
+		//given
+		User savedUser =userRepository.save(User.builder()
+			.email("email")
+			.name("name")
+			.age(20)
+			.build());
+		Long savedId =savedUser.getId();
+
+		String url ="http://localhost:" +port + "/api/v1/user/" +savedId;
+
+		//when
+		mvc.perform(delete(url))
+			.andExpect(status().isOk())
+			.andDo(print());
+
+		//then
+		assertThat(userRepository.findById(savedId)).isEmpty();
 	}
 }
