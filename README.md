@@ -6,6 +6,7 @@ Spring test code
 ### 목록
 
 - [JUnit4 기본](#junit4)
+- [JUnit5 기본](#junit5)
 - [AssertJ](#assertj)
 - [MVC Test](#mvc-test)
 
@@ -23,7 +24,7 @@ Spring test code
   - @Test(expected= ~Exception.class) <br>
   	~Exception이 발생하면 성공, 아니면 실패.
 
-- @Before / @After <br>
+- @Before / @After <br>****
   각 테스트마다 테스트 전 / 후에 실행되어야 하는 코드 삽입.
 
 - @BeforeClass / @AfterClass <br>
@@ -49,6 +50,80 @@ Spring test code
 - assertArrayEquals(type[] expecteds, type[] actuals) <br>
   expecteds와 actuals가 같은 같은 값을 가진 배열이면 테스트 성공.
 
+
+<br>
+<hr>
+<br>
+
+# JUnit5
+### Annotation
+- @Test <br>
+  해당 어노테이션이 붙은 메서드를 테스트. (JUnit4의 @Test와 차이점은 다른 속성을 선언하지 못함.)
+
+- @ParameterizedTest <br>
+  매개변수가 있는 테스트를 지정. <br>
+  매개변수를 지정할 땐 다음과 같은 어노테이션들을 사용할 수 있음. <br>
+
+  - @ValueSource <br>
+	단일 값 배열을 전달. <br>
+	값의 종류는 short, byte, int, ... boolean, java.lang.String, java.lang.Class 등이 있음.
+
+  - @NullSource <br>
+	단일 null 값을 전달. <br>
+	기본 타입은 null 값을 허용할 수 없음.
+
+  - @EmptySource <br>
+	ㅇ
+
+  - @NullAndEmptySource <br>
+	ㅇ
+
+  - @EnumSource <br>
+	ㅇ
+
+  - @MethodSource <br>
+	ㅇ
+
+  - @CsvSource <br>
+	ㅇ
+
+  - @CsvFileSource <br>
+	ㅇ
+
+  - @ArgumentsSource <br>
+	ㅇ
+
+- @RepeatedTest <br>
+  
+- @TestFactory <br>
+
+- @BeforeEach / @AfterEach <br>
+  각 테스트마다 테스트 전 / 후에 실행되어야 하는 코드 삽입. <br>
+  현재 class 안에 있는 @Test, @RepeatedTest, @ParameterizedTest, @TestFactory 가 붙은 메서드가 전 / 후에 @BeforeEach / @AfterEach 가 붙은 메서드가 실행됨.
+
+- @BeforeAll / @AfterAll <br>
+  전체 테스트마다 테스트 전 / 후에 실행되어야 하는 코드 삽입. <br>
+  @BeforeEach / @AfterEach랑 비슷.
+
+- @Disable <br>
+  해당 테스트 클래스 또는 테스트 메서드를 사용하지 않음.
+
+- @TestTemplate <br>
+- @TestMethodOrder <br>
+- @TestInstance <br>
+- @DisplayName <br>
+- @DisplayNameGeneration <br>
+- @Nested <br>
+- @Tag <br>
+- @Timeout <br>
+- @ExtendWith <br>
+- @RegisterExtension <br>
+- @TempDir <br>
+
+참고 : <https://junit.org/junit5/docs/snapshot/user-guide/index.html#writing-tests-annotations> 
+
+### Mathod
+- ...
 
 <br>
 <hr>
