@@ -1,4 +1,4 @@
-package com.jh.springtestcode.examples;
+package com.jh.springtestcode.examples.junit5;
 
 import org.junit.jupiter.api.BeforeAll;
 

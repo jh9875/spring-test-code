@@ -1,27 +1,21 @@
-package com.jh.springtestcode.examples;
+package com.jh.springtestcode.examples.junit4;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jh.springtestcode.domain.user.User;
 import com.jh.springtestcode.domain.user.UserRepository;
-import com.jh.springtestcode.service.UserService;
-import com.jh.springtestcode.web.UserApiController;
 import com.jh.springtestcode.web.dto.UserSaveRequestDto;
 import com.jh.springtestcode.web.dto.UserUpdateRequestDto;
 
-import org.assertj.core.api.UrlAssert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -39,7 +33,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 
-//통합테스트
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserControllerTest {

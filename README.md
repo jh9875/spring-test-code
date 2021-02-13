@@ -73,10 +73,10 @@ Spring test code
 	기본 타입은 null 값을 허용할 수 없음.
 
   - @EmptySource <br>
-	ㅇ
+	단일 빈 값을 인수에 전달.
 
   - @NullAndEmptySource <br>
-	ㅇ
+	@NullSource와 @EmptySource의 기능을 제공.
 
   - @EnumSource <br>
 	ㅇ
@@ -94,9 +94,21 @@ Spring test code
 	ㅇ
 
 - @RepeatedTest <br>
-  
-- @TestFactory <br>
+  반복 테스트를 하기위해 사용.
+  매개변수로 반복 값이 들어감.
 
+- @TestFactory <br>
+  동적 테스트를 하기위해 사용.
+  (부가설명 필요..)
+
+
+- @TestTemplate <br>
+  ㅇ
+
+- @TestMethodOrder <br>
+- @TestInstance <br>
+- @DisplayName <br>
+- @DisplayNameGeneration <br>
 - @BeforeEach / @AfterEach <br>
   각 테스트마다 테스트 전 / 후에 실행되어야 하는 코드 삽입. <br>
   현재 class 안에 있는 @Test, @RepeatedTest, @ParameterizedTest, @TestFactory 가 붙은 메서드가 전 / 후에 @BeforeEach / @AfterEach 가 붙은 메서드가 실행됨.
@@ -105,16 +117,11 @@ Spring test code
   전체 테스트마다 테스트 전 / 후에 실행되어야 하는 코드 삽입. <br>
   @BeforeEach / @AfterEach랑 비슷.
 
+- @Nested <br>
+- @Tag <br>
 - @Disable <br>
   해당 테스트 클래스 또는 테스트 메서드를 사용하지 않음.
 
-- @TestTemplate <br>
-- @TestMethodOrder <br>
-- @TestInstance <br>
-- @DisplayName <br>
-- @DisplayNameGeneration <br>
-- @Nested <br>
-- @Tag <br>
 - @Timeout <br>
 - @ExtendWith <br>
 - @RegisterExtension <br>
@@ -159,7 +166,7 @@ Spring test code
 	  ..
 
 	- @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE) <br>
-	  기본적인 ApplicationContext를 로드?
+	  기본적인 ApplicationContext를 불러옴.
 
 
 
